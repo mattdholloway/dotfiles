@@ -1,0 +1,7 @@
+[tools]
+node = "24.8.0"
+rust = "stable"
+golang = "latest"
+deno = "latest"
+ruby = "latest"
+python = "latest"

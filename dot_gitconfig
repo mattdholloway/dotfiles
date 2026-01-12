@@ -1,0 +1,33 @@
+[maintenance]
+	repo = /Users/mattdholloway/Repos/znap
+	repo = /Users/mattdholloway/Repos/marlonrichert/zsh-autocomplete
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = Matt Holloway
+	email = mattdholloway@pm.me
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[core]
+	excludesFile = ~/.gitignore_global
+	pager = delta
+[pull]
+	rebase = true
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	light = false
+	line-numbers = true
+	side-by-side = true
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
