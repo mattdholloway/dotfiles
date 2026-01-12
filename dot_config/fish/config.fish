@@ -13,6 +13,12 @@ if status is-interactive
     
     # Atuin (shell history)
     atuin init fish | source
+    
+    # Direnv (auto-load env vars per directory)
+    direnv hook fish | source
+    
+    # FZF key bindings
+    fzf_configure_bindings --directory=\cf --git_log=\cg --git_status=\cs --processes=\cp
 end
 
 # PATH additions
