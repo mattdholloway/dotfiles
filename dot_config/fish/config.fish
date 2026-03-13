@@ -1,24 +1,26 @@
-# Homebrew
-fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
+# iTerm2 shell integration (load first)
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 
 if status is-interactive
     # Oh My Posh prompt
     oh-my-posh init fish --config (brew --prefix oh-my-posh)/themes/spaceship.omp.json | source
     
     # Mise (runtime version manager)
-    mise activate fish --shims | source
+    if not set -q VSCODE_PID
+        mise activate fish | source
+    end
     
     # Zoxide (smart cd)
     zoxide init fish | source
     
-    # Atuin (shell history)
+    # FZF key bindings (history disabled - using atuin instead)
+    fzf_configure_bindings --directory=\cf --git_log=\cg --git_status=\cs --processes=\cp --history=
+    
+    # Atuin (shell history) - must be after fzf to override bindings
     atuin init fish | source
     
     # Direnv (auto-load env vars per directory)
     direnv hook fish | source
-    
-    # FZF key bindings
-    fzf_configure_bindings --directory=\cf --git_log=\cg --git_status=\cs --processes=\cp
 end
 
 # PATH additions
@@ -32,6 +34,9 @@ set -gx PKG_CONFIG_PATH "/opt/homebrew/lib/pkgconfig:$PKG_CONFIG_PATH"
 set -gx OPENSSL_DIR "/opt/homebrew/opt/openssl"
 set -gx OPENSSL_LIB_DIR "/opt/homebrew/opt/openssl/lib"
 set -gx OPENSSL_INCLUDE_DIR "/opt/homebrew/opt/openssl/include"
+
+# Homebrew
+fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
 
 # Better defaults
 set -gx EDITOR "code --wait"  # or vim, nano, etc.
