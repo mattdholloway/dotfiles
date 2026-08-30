@@ -35,28 +35,24 @@ My personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 ### Bootstrap on a new machine
 
-```bash
-# Install chezmoi and apply dotfiles
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mattdholloway
-```
+1Password first (SSH agent), then Homebrew, then this repo, then the Brewfile.
 
-### Prerequisites
-
-Install Homebrew (macOS):
 ```bash
+# Homebrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-Install required tools:
-```bash
-brew install fish oh-my-posh mise zoxide atuin fzf bat eza ripgrep fd \
-             git-delta btop duf dust procs sd yq hyperfine lazygit direnv \
-             tldr gh
-```
+# Sign in to 1Password, enable Settings → Developer → Use SSH agent
+brew install --cask 1password
+brew install 1password-cli
 
-### Set Fish as default shell
+# Dotfiles (fish, git, mise, atuin, nvim, iTerm prefs, Brewfile)
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply mattdholloway
 
-```bash
+# All CLI tools and casks
+brew bundle --file ~/Brewfile
+
+# Fish as login shell
 echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
 chsh -s /opt/homebrew/bin/fish
 ```

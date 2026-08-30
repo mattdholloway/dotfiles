@@ -17,7 +17,8 @@ if status is-interactive
     fzf_configure_bindings --directory=\cf --git_log=\cg --git_status=\cs --processes=\cp --history=
     
     # Atuin (shell history) - must be after fzf to override bindings
-    atuin init fish | source
+    # Patch out deprecated `bind -k` syntax for fish 4.x
+    atuin init fish | string replace -a -- '-k up' 'up' | string replace -a -- '-M insert -k up' '-M insert up' | source
     
     # Direnv (auto-load env vars per directory)
     direnv hook fish | source
@@ -64,3 +65,7 @@ if status is-interactive
     abbr -a gti git
     abbr -a gt git
 end
+
+# >>> grok installer >>>
+fish_add_path $HOME/.grok/bin
+# <<< grok installer <<<

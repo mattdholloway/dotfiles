@@ -6,3 +6,5 @@
 # Ignore the workspace settings file, as it's often modified by
 # extensions like 'mise' with machine-specific paths.
 .vscode/settings.json
+
+**/.claude/settings.local.json
